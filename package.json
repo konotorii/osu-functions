@@ -1,0 +1,49 @@
+{
+  "name": "osu-functions",
+  "version": "0.0.0",
+  "description": "Functions for osu!",
+  "main": "./lib/cjs/index.js",
+  "types": "./lib/cjs/types/index.d.ts",
+  "scripts": {
+    "test": "mocha",
+    "build": "npm run clean && npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc -p ./configs/tsconfig.esm.json && mv lib/esm/index.js lib/esm/index.mjs",
+    "build:cjs": "tsc -p ./configs/tsconfig.cjs.json",
+    "prepack": "npm run build"
+  },
+  "keywords": [
+    "osu",
+    "functions",
+    "scores",
+    "collection",
+    "database",
+    "db"
+  ],
+  "author": "Konotorii",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^5.3.3"
+  },
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./lib/esm/types/index.d.ts",
+        "default": "./lib/esm/index.mjs"
+      },
+      "require": {
+        "types": "./lib/cjs/types/index.d.ts",
+        "default": "./lib/cjs/index.js"
+      }
+    }
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "devDependencies": {
+    "@types/chai": "^4.3.11",
+    "chai": "^5.0.0",
+    "mocha": "^10.2.0",
+    "semantic-release": "^23.0.0",
+    "ts-node": "^10.9.2"
+  }
+}
