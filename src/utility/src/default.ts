@@ -6,6 +6,11 @@ export interface response {
 
 }
 
+/**
+ *
+ * @param param description
+ * @returns {object} description
+ */
 const name = () => {
 
 }
