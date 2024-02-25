@@ -3,7 +3,7 @@ import {readLongStr, readString, winTickToMs} from "./buffer";
 import {beatmap_type, score_type} from "../types";
 
 export interface types {
-    (path: string): any
+    (path: string): Promise<beatmap_type[]>
 }
 
 /**
@@ -23,7 +23,11 @@ const name: types = async (path) => {
         let offset = 8;
         for (let i = 0; i < beatmapCount; i++) {
             const md5 = readString(file, offset);
-            if (!beatmaps.includes({md5: md5.str})) beatmaps[i].scores = [];
+            beatmaps.push({
+                md5: md5.str,
+                scores: []
+            })
+            // if (!beatmaps.includes({md5: md5.str})) beatmaps[i].scores = [];
             offset += md5.length;
 
             const scoreCount = file.readInt32LE((offset += 4) - 4);
@@ -54,10 +58,16 @@ const name: types = async (path) => {
                 score.version = file.readInt32LE((offset += 4) - 4);
 
                 const gets = ["beatmapMd5", "player", "replayMd5"];
+                let count = 0
                 for (let get in gets) {
                     const strobj = readString(file, offset);
-                    console.log(strobj)
+                    // console.log(strobj)
+                    if (count == 0) score.beatmapMd5 = strobj.str
+                    else if (count == 1) score.player = strobj.str
+                    else if (count == 2) score.replayMd5 = strobj.str
                     // score[gets[get]] = strobj.str;
+
+                    count++
                     offset += strobj.length;
                 }
 
@@ -86,7 +96,8 @@ const name: types = async (path) => {
                 score.onlineScoreId = readLongStr(file, (offset += 8) - 8);
 
                 // Add
-                beatmaps[i].scores = []
+                // console.log(beatmaps[i])
+                // beatmaps[i].scores = []
                 beatmaps[i].scores.push(score);
             }
         }
