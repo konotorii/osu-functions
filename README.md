@@ -7,7 +7,6 @@ This repo is meant to be up-to-date, providing type-safety and synchronous & asy
 
 ## Roadmap
 
-- Read scores.db (Currently working on it)
 - Write scores.db
 - Read collections.db
 - Write collections.db
@@ -22,3 +21,11 @@ This repo is meant to be up-to-date, providing type-safety and synchronous & asy
 ## Features
 
 To-Be-Completed as updates roll-out.
+
+### Read scores.db
+```ts
+import * as path from "path";
+
+const read = await scoresRead(path.resolve('PATH TO FILE'))
+/// Whatever you have to do with result...
+```
