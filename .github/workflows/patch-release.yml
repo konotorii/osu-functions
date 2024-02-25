@@ -55,5 +55,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ steps.semver.outputs.patch }}
-          release_name: Release ${{ steps.semver.outputs.major }}
+          release_name: Release ${{ steps.semver.outputs.patch }}
           body: ${{ steps.changelog.outputs.clean_changelog }}
