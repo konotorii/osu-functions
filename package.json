@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "description": "Functions for osu!",
   "scripts": {
-    "build": "tsc",
-    "prepublish": "npm run build"
+    "build": "tsc"
   },
   "keywords": [
     "osu",
