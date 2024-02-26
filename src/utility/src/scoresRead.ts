@@ -12,7 +12,7 @@ export interface types {
  * @returns {beatmaps} beatmap objects with scores
  */
 
-const name: types = async (path) => {
+export const name: types = async (path) => {
     try {
         const file = fs.readFileSync(path)
 
@@ -108,5 +108,3 @@ const name: types = async (path) => {
         return [];
     }
 }
-
-export default name;
