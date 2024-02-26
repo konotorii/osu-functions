@@ -1,6 +1,6 @@
 {
   "name": "osu-functions",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Functions for osu!",
   "scripts": {
     "build": "tsc"
