@@ -4,6 +4,7 @@
   "description": "Functions for osu!",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "repository": "github:konotorii/osu-functions",
   "scripts": {
     "build": "tsc",
     "prepublish": "npm run build"
