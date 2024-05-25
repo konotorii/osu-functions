@@ -1,23 +1,37 @@
 import * as fs from "fs";
 import {createLongStr, createString} from "./buffer";
-import {beatmap_type} from "../types";
+import {beatmap_type, score_type} from "../types";
 
 export interface types {
-    (path: string, beatmaps: beatmap_type[]): Promise<response>
-}
-
-export interface response {
-
+    (path: string, beatmaps: score_type[]): Promise<200 | null>
 }
 
 /**
  *
  * @param path path to file
- * @param beatmaps beatmap_type[]
+ * @param scores score_type[]
  * @returns {null | undefined} if it returns null, no error. returns undefined, error occurred and was logged
  */
-const name: types = async (path, beatmaps) => {
+export const name: types = async (path, scores) => {
     try {
+        const beatmaps: beatmap_type[] = []
+
+        for (let score of scores) {
+            const find = beatmaps.findIndex((v) => v.md5 == score.beatmapMd5)
+
+            if (find == -1) {
+                beatmaps.push({
+                    md5: score.beatmapMd5,
+                    scores: [
+                        score,
+                    ]
+                });
+            }
+            else {
+                beatmaps[find].scores.push(score);
+            }
+        }
+
         let buf = Buffer.alloc(8);
 
         buf.writeInt32LE(20160215);
@@ -26,11 +40,11 @@ const name: types = async (path, beatmaps) => {
         for (let md5 in beatmaps) {
             buf = Buffer.concat([buf, createString(md5)]);
 
-            var scoreCountBuf = Buffer.alloc(4);
+            const scoreCountBuf = Buffer.alloc(4);
             scoreCountBuf.writeInt32LE(beatmaps[md5].scores.length);
             buf = Buffer.concat([buf, scoreCountBuf]);
 
-            for (var i = 0; i < beatmaps[md5].scores.length; i++) {
+            for (let i = 0; i < beatmaps[md5].scores.length; i++) {
                 let score = beatmaps[md5].scores[i];
 
                 let modeVersionBuf = Buffer.alloc(5);
@@ -60,7 +74,7 @@ const name: types = async (path, beatmaps) => {
 
                 buf = Buffer.concat([buf, createLongStr(score.timestampWindows)]);
 
-                var unknownBuf = new Buffer(4);
+                const unknownBuf = Buffer.alloc(4);
                 unknownBuf.writeInt32LE(-1, 0);
                 buf = Buffer.concat([buf, unknownBuf]);
 
@@ -70,10 +84,9 @@ const name: types = async (path, beatmaps) => {
 
         fs.writeFileSync(path, buf);
 
-        return null
+        return 200
     } catch (e) {
         console.log(e)
-        return undefined
+        return null
     }
 }
-export default name;

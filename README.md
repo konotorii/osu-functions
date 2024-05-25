@@ -8,7 +8,6 @@ This repo is meant to be up-to-date, providing type-safety and synchronous & asy
 ## Roadmap
 - - -
 
-- Write scores.db
 - Read collections.db
 - Write collections.db
 - Read osu!.db
@@ -32,7 +31,14 @@ import {tools} from "osu-functions";
 const scores = await tools.scoresRead(path.resolve('PATH TO FILE')) // returns score_type[]
 /// Whatever you have to do with result...
 ```
+### Write scores.db
+```ts
+import * as path from "path";
+import {tools} from "osu-functions";
 
+const scores = await tools.scoresWrite(path.resolve('PATH TO FILE'), "score_type[]") // returns 200 or null
+/// Whatever you have to do with result...
+```
 
 ## Types
 - - -
