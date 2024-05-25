@@ -3,30 +3,26 @@ import {readLongStr, readString, winTickToMs} from "./buffer";
 import {beatmap_type, score_type} from "../types";
 
 export interface types {
-    (path: string): Promise<beatmap_type[]>
+    (path: string): Promise<score_type[]>
 }
 
 /**
  *
  * @param path relative or absolute path to file
- * @returns {beatmaps} beatmap objects with scores
+ * @returns {score_type} beatmap objects with scores
  */
 
 export const name: types = async (path) => {
     try {
         const file = fs.readFileSync(path)
 
-        let beatmaps: beatmap_type[] = [];
+        let scores: score_type[] = [];
 
         const version = file.readInt32LE(0);
         const beatmapCount = file.readInt32LE(4);
         let offset = 8;
         for (let i = 0; i < beatmapCount; i++) {
             const md5 = readString(file, offset);
-            beatmaps.push({
-                md5: md5.str,
-                scores: []
-            })
             // if (!beatmaps.includes({md5: md5.str})) beatmaps[i].scores = [];
             offset += md5.length;
 
@@ -98,11 +94,12 @@ export const name: types = async (path) => {
                 // Add
                 // console.log(beatmaps[i])
                 // beatmaps[i].scores = []
-                beatmaps[i].scores.push(score);
+                // beatmaps[i].scores.push(score);
+                scores.push(score)
             }
         }
 
-        return beatmaps;
+        return scores;
     } catch (err) {
         console.log(err)
         return [];
