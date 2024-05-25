@@ -29,20 +29,13 @@ To-Be-Completed as updates roll-out.
 import * as path from "path";
 import {tools} from "osu-functions";
 
-const scores = await tools.scoresRead(path.resolve('PATH TO FILE')) // returns beatmap_type[]
+const scores = await tools.scoresRead(path.resolve('PATH TO FILE')) // returns score_type[]
 /// Whatever you have to do with result...
 ```
 
 
 ## Types
 - - -
-### beatmap_type
-```ts
-{
-    md5: string;
-    scores: "score_type[]";
-}
-```
 ### score_type
 ```ts
 {

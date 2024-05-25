@@ -1,7 +1,10 @@
 name: Publish to NPM
 
 on:
-  release
+  workflow_run:
+    workflows: ["Minor Release", "Patch Release", "Major Release"]
+    types:
+      - completed
 
 jobs:
   build:
