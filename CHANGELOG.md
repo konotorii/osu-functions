@@ -1,3 +1,7 @@
+## [0.0.21](https://github.com/konotorii/osu-functions/compare/v0.0.20...v0.0.21) (2024-06-05)
+
+
+
 ## [0.0.20](https://github.com/konotorii/osu-functions/compare/v0.0.19...v0.0.20) (2024-05-25)
 
 
@@ -11,10 +15,6 @@
 
 
 ## [0.0.17](https://github.com/konotorii/osu-functions/compare/v0.0.16...v0.0.17) (2024-05-25)
-
-
-
-## [0.0.16](https://github.com/konotorii/osu-functions/compare/v0.0.15...v0.0.16) (2024-02-26)
 
 
 
